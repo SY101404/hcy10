@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华晨宇 华晨宇 我们喜欢你</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            background-image: linear-gradient(to top, #7d0e0e 0%, #fffbb2 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 定义外层容器样式 */
+        .shell {
+            position: relative;
+            width: 60vw;
+            height: 80vw;
+            max-width: 3600px;
+            max-height: 4800px;
+            margin: 0;
+            color: white;
+            perspective: 1000px;
+            transform-origin: center;
+            margin-top: -100px;
+        }
+
+        /* 定义内容容器样式 */
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            transform-style: preserve-3d;
+            transform: translateZ(600px) rotateY(0);
+            animation: carousel 30s linear infinite;
+            animation-direction: normal;
+            /* 默认为顺时针 */
+            transition: transform 2s;
+            /* 添加过渡效果 */
+        }
+
+        /* 定义项目样式 */
+        .item {
+            position: absolute;
+            width: 60vw;
+            height: 80vw;
+            max-width: 360px;
+            max-height: 480px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            background-size: cover;
+            transform-style: preserve-3d;
+            /*-webkit-box-reflect: below 25px -webkit-linear-gradient(transparent 50%, rgba(255, 255, 255, 0.3));*/
+        }
+
+        /* 依次设置每个项目的旋转后位置 */
+        .item:nth-child(1) {
+            background-image: url(./01.jpg);
+            transform: rotateY(0deg) translateZ(600px);
+        }
+
+        .item:nth-child(2) {
+            background-image: url(./02.jpg);
+            transform: rotateY(36deg) translateZ(600px);
+        }
+
+        .item:nth-child(3) {
+            background-image: url(./03.jpg);
+            transform: rotateY(72deg) translateZ(600px);
+        }
+
+        .item:nth-child(4) {
+            background-image: url(./04.jpg);
+            transform: rotateY(108deg) translateZ(600px);
+        }
+
+        .item:nth-child(5) {
+            background-image: url(./05.jpg);
+            transform: rotateY(144deg) translateZ(600px);
+        }
+
+        .item:nth-child(6) {
+            background-image: url(./06.jpg);
+            transform: rotateY(180deg) translateZ(600px);
+        }
+
+        .item:nth-child(7) {
+            background-image: url(./07.jpg);
+            transform: rotateY(216deg) translateZ(600px);
+        }
+
+        .item:nth-child(8) {
+            background-image: url(./08.jpg);
+            transform: rotateY(252deg) translateZ(600px);
+        }
+
+        .item:nth-child(9) {
+            background-image: url(./09.jpg);
+            transform: rotateY(288deg) translateZ(600px);
+        }
+
+        .item:nth-child(10) {
+            background-image: url(./10.jpg);
+            transform: rotateY(324deg) translateZ(600px);
+        }
+
+        /* 鼠标移入，盒子变大，同时保持原有的旋转角度 */
+        .item:hover {
+            transform: rotateY(var(--current-rotation)) translateZ(650px);
+            /* 调整此值以改变距离 */
+            scale: 1.025;
+            box-shadow: 0 50px 80px rgba(252, 113, 113, 0.51);
+        }
+
+        /* 定义动画 */
+        @keyframes carousel {
+            0% {
+                transform: translateZ(-80vw) rotateX(-10deg) rotateY(0deg);
+            }
+
+            25% {
+                transform: translateZ(-80vw) rotateX(-10deg) rotateY(90deg);
+            }
+
+            50% {
+                transform: translateZ(-80vw) rotateX(-10deg) rotateY(180deg);
+            }
+
+            75% {
+                transform: translateZ(-80vw) rotateX(-10deg) rotateY(270deg);
+            }
+
+            100% {
+                transform: translateZ(-80vw) rotateX(-10deg) rotateY(360deg);
+            }
+        }
+
+        /* 定义按钮样式 */
+        .control-buttons {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .control-buttons.left {
+            left: 20px;
+        }
+
+        .control-buttons.right {
+            right: 20px;
+        }
+
+        .control-buttons img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+
+        /* 定义倒影样式 */
+
+        .item::before {
+            content: '';
+            position: absolute;
+            top: 93%;
+            /* 倒影位于元素底部 */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(153, 0, 0, 0.65);
+            border-radius: 6px;
+            transform: rotateX(90deg) translateY(50%)translateZ(170px);
+            /* 使倒影垂直于图像 */
+            opacity: 0.5;
+            /* 设置透明度 */
+            backface-visibility: hidden;
+            /* 防止倒影的背面显示 */
+            z-index: -1;
+        }
+
+        /* 定义遮罩层样式 */
+
+        .item::after {
+            content: '';
+            position: absolute;
+            top: 108%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 6px;
+            transform: scaleY(-1);
+            opacity: 0.3;
+            filter: blur(2px);
+            z-index: -1;
+            mask: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 80%);
+            /* 从上到下逐渐变透明 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="shell">
+        <div class="content">
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+            <div class="item"></div>
+        </div>
+    </div>
+    <div class="control-buttons left">
+        <img src="./12.png" alt="ni时针旋转" id="counterclockwise">
+    </div>
+    <div class="control-buttons right">
+        <img src="./11.png" alt="shun时针旋转" id="clockwise">
+    </div>
+    <script>
+        document.querySelectorAll('.item').forEach((item, index) => {
+            const rotation = (index * 36) + 'deg';
+            item.style.setProperty('--current-rotation', rotation);
+
+            let isPaused = false;
+
+            item.addEventListener('mousemove', (event) => {
+                const rect = item.getBoundingClientRect();
+                const isInsidePseudoElement =
+                    event.clientY > rect.bottom + (rect.height * 0.08) || // 伪元素高度为原高度的8%
+                    event.clientY < rect.top - (rect.height * 0.08) ||
+                    event.clientX < rect.left ||
+                    event.clientX > rect.right;
+
+                const content = document.querySelector('.content');
+
+                if (isInsidePseudoElement) {
+                    if (!isPaused) {
+                        content.style.animationPlayState = 'running';
+                        isPaused = true;
+                    }
+                    // 不在伪元素区域内时，恢复默认样式
+                    item.style.transform = `rotateY(${rotation}) translateZ(600px)`;
+                    item.style.scale = '1';
+                    item.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+                } else {
+                    if (isPaused) {
+                        content.style.animationPlayState = 'paused';
+                        isPaused = false;
+                    }
+                    // 在主体部分时，放大和靠近
+                    item.style.transform = `rotateY(${rotation}) translateZ(650px)`;
+                    item.style.scale = '1.025';
+                    item.style.boxShadow = '0 50px 80px rgba(252, 113, 113, 0.51)';
+                }
+            });
+
+            item.addEventListener('mouseleave', () => {
+                const content = document.querySelector('.content');
+                content.style.animationPlayState = 'running';
+                isPaused = true;
+                // 恢复默认样式
+                item.style.transform = `rotateY(${rotation}) translateZ(600px)`;
+                item.style.scale = '1';
+                item.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            });
+        });
+
+        document.getElementById('clockwise').addEventListener('click', () => {
+            document.querySelector('.content').style.animationDirection = 'normal';
+            document.querySelector('.content').style.animationPlayState = 'running';
+        });
+
+        document.getElementById('counterclockwise').addEventListener('click', () => {
+            document.querySelector('.content').style.animationDirection = 'reverse';
+            document.querySelector('.content').style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+
+</html>
